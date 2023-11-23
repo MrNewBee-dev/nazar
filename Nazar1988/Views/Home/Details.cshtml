@@ -1,0 +1,94 @@
+﻿@model ProductsDiscountModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Details";
+    
+}
+
+<div class="row" style="margin-top: 100px ">
+    <!-- Blog Post Content Column -->
+    <div class="col-lg-8">
+        <!-- Title -->
+        <h1 class="mb-3"> @Model.ProductName </h1>
+
+
+        <hr>
+        <!-- Post Content -->
+        <div id="content">
+            @Model.ProductDescription
+        </div>
+        <hr>
+        @foreach (var item in System.Text.Json.JsonSerializer.Deserialize<List<string>>(Model.ImagePath).ToList())
+        
+        {
+            <div>
+                <img src="~/GalleryFiles/@System.IO.Path.GetFileName(item)" />
+                
+            </div>
+        }
+
+
+
+        <!-- Blog Comments -->
+        <hr>
+        <!-- Comments Form -->
+
+
+
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+
+    <div class="col-md-4">
+
+
+        
+        
+        <div class="card my-4">
+            <div class="card-body">
+                @if (Model.StartDate < DateTime.Now && Model.EndtDate > DateTime.Now)
+                {
+                    if (ViewBag.role == true)
+                    {
+
+                        <p>برای استفاده از این محصول نیاز است این دوره را با مبلغ  @(Model.PriceToziKonande - (Model.PriceToziKonande * Model.DiscountPercent) / 100) تومان خریداری کنید</p>
+                    }
+                    else
+                    {
+                        <p>برای استفاده از این محصول نیاز است این دوره را با مبلغ  @(Model.Price - (Model.Price * Model.DiscountPercent) / 100) تومان خریداری کنید</p>
+                    }
+
+
+                }
+                else
+                {
+                    if (ViewBag.role == true)
+                    {
+                        <p>برای استفاده از این محصول نیاز است این دوره را با مبلغ  @(Model.PriceToziKonande) تومان خریداری کنید</p>
+                    }
+                    else
+                    {
+                        <p>برای استفاده از این محصول نیاز است این دوره را با مبلغ  @(Model.Price) تومان خریداری کنید</p>
+                    }
+
+                }
+
+                <form asp-action="AddToCart" asp-controller="Orders" asp-route-id="@Model.ProductID" method="post">
+                    <input type="hidden" name="course">
+                    <button type="submit" class="btn btn-success">خرید محصول</button>
+                </form>
+            </div>
+        </div>
+        
+        
+
+
+
+        <!-- Search Widget -->
+        
+
+        <!-- Categories Widget -->
+        
+    </div>
+</div>
+

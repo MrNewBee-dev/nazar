@@ -1,0 +1,43 @@
+﻿@model Nazar1988.Models.Discount
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_MymasterLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Discount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountPercent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPercent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndtDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndtDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductIdies)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductIdies.ProductID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

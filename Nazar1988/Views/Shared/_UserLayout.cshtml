@@ -1,0 +1,106 @@
+﻿
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>فروشگاه</title>
+    <link rel="stylesheet" href="/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="~/css/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/jquery.bonsai.css">
+    <link href="/select2/dist/css/select2.css" rel="stylesheet" />
+    <link href="/css/bootstrap-fileinput.css" rel="stylesheet" />
+    <link href="/css/TreeView.css" rel="stylesheet" />
+    <link href="~/css/comboTreePlugin.css" rel="stylesheet" />
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/popper.js/popper.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.md.bootstrap.datetimepicker.js"></script>
+    <script src="~/js/jquery.inputmask.bundle.js"></script>
+    <script src="/js/bootstrap-fileinput.js"></script>
+</head>
+<body class="sidebar-fixed header-fixed">
+    <div class="page-wrapper">
+        <nav class="navbar page-header bg-dark">
+            <div>
+
+                <a href="#" class="btn btn-link sidebar-toggle d-md-down-none text-white">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+
+
+        </nav>
+        <div class="main-container style=" background-color:#10ac84"">
+            <div class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="nav">
+                        <li class="nav-title">پنل مشتریان</li>
+                        <li class="nav-item">
+                            <a href="index.html" class="nav-link">
+                                <i class="icon icon-speedometer"></i> داشبورد
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/userpanel/Wallet" class="nav-link">
+                                <i class="icon icon-speedometer"></i> شارژ حساب کاربری
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/Orders/ShowOrder" class="nav-link">
+                                <i class="icon icon-speedometer"></i> فاکتورهای پرداخت نشده
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/userpanel/editprofile" class="nav-link">
+                                <i class="icon icon-speedometer"></i> ویرایش حساب کاربری
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/userpanel/FactorUser" class="nav-link">
+                                <i class="icon icon-speedometer"></i> فاکتورها
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Account/SignOut" class="nav-link">
+                                <i class="icon icon-speedometer"></i> خروج از حساب کاربری
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="/vendor/chart.js/chart.min.js"></script>
+    <script src="/js/carbon.js"></script>
+    <script src="/js/demo.js"></script>
+
+    <script src="/select2/dist/js/select2.min.js"></script>
+    <script src="/select2/dist/js/select2.full.js"></script>
+
+    <script src="/js/TreeView.js"></script>
+    <script src="~/js/comboTreePlugin.js"></script>
+    <script src="~/js/icontains.js"></script>
+
+    <script>
+
+        // for select2
+        $(".select2").select2({
+            placeholder: "انتخاب کنید"
+        });
+
+        // for TreeView
+        $('.demo1').bonsai();
+
+    </script>
+</body>
+</html>

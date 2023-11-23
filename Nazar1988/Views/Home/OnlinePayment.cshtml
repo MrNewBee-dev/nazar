@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "OnlinePayment";
+}
+
+<h1>نتیجه پرداخت</h1>
+<hr />
+<div class="alert alert-success">
+    @if (ViewBag.Error != null)
+    {
+        <h4 class="bg-danger">@ViewBag.Error</h4>
+
+
+    }
+    else
+    {
+    <h2>کاربر گرامی با تشکر از پرداخت شما</h2>
+    <p>کد پیگیری شما : @ViewBag.code</p>
+    }
+    <a class=" text-white" asp-action="index">بازگشت به صفحه اصلی</a>
+</div>
+

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Nazar1988.Models.ViewModels.ShowOrderViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_MymasterLayout.cshtml";
+    int row = 1;
+}
+<h1>نمایش فاکتور</h1>
+<hr />
+<a class="btn btn-info btn-block"   asp-action="PrintPage" asp-route-id="@ViewBag.Id">چاپ فاکتور</a>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>تصویر</th>
+        <th>عنوان</th>
+        <th>تعداد</th>
+        <th>قیمت</th>
+        <th>جمع</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@row</td>
+            <td>
+                <img style="max-width: 150px" class="thumbnail" src="/Images/@item.ImageName" />
+            </td>
+            <td>@item.Title</td>
+            <td>@item.Count</td>
+            <td>@item.Price</td>
+            <td>@item.Sum</td>
+        </tr>
+
+        row += 1;
+    }
+    <tr>
+        <td colspan="5" class="text-left">جمع کل : </td>
+        <td colspan="2">
+            @Model.Sum(s => s.Sum).ToString("#,0 تومان")
+        </td>
+
+
+        <td colspan="5" class="text-left">جمع محصول : </td>
+        <td colspan="2">
+            @Model.Sum(s => s.Count).ToString("#,0 تومان")
+        </td>
+    </tr>
+
+
+</table>
+

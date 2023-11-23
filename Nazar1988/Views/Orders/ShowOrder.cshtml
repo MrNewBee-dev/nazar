@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Nazar1988.Models.ViewModels.ShowOrderViewModel>
+@{
+    ViewData["Title"] = "ShowOrder";
+    int row = 1;
+}
+
+<h1>نمایش فاکتور</h1>
+<hr />
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        
+        <th>عنوان</th>
+        <th>تعداد</th>
+        <th>قیمت</th>
+        <th>جمع</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@row</td>
+            
+            <td>@item.Title</td>
+            <td>@item.Count</td>
+            <td>@item.Price</td>
+            <td>@item.Sum</td>
+            <td>
+                <a class="btn btn-sm btn-success" href="/Orders/Command/@item.OrderDetailId?command=up">افزایش</a>
+                <a class="btn btn-sm btn-warning" href="/Orders/Command/@item.OrderDetailId?command=down">کاهش</a>
+                <a class="btn btn-sm btn-danger" href="/Orders/Command/@item.OrderDetailId?command=delete">
+                    حذف
+                </a>
+            </td>
+        </tr>
+
+        row += 1;
+    }
+    <tr>
+        <td colspan="5" class="text-left">جمع کل : </td>
+        <td colspan="2">
+            @Model.Sum(s => s.Sum).ToString()
+        </td>
+
+
+        <td colspan="5" class="text-left">جمع محصول : </td>
+        <td colspan="2">
+            @Model.Sum(s => s.Count).ToString("#,0 تومان")
+        </td>
+    </tr>
+    <tr>
+        
+
+    </tr>
+    <tr>
+        @if (ViewBag.tozi == 5)
+        {
+            <td colspan="6" class="text-left">
+                <h6 class="bg-danger">به زودی همکاران ما با شما تماس خواهند گرفت</h6>
+            </td>
+        }
+        else
+        {
+            @using (Html.BeginForm("PaymentOne", "Orders",FormMethod.Post))
+            {
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radiobutton" value="option1" checked>
+                        <label class="form-check-label">
+                            اعتبار کاربری
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="radiobutton" value="option2">
+                        <label class="form-check-label">
+                            پرداخت انلاین
+                        </label>
+                    </div>
+
+                </td>
+                <td colspan="6" class="text-left">
+
+                    <h6>آدرس</h6>
+                    <input class="form-control" type="text" name="address" />
+
+
+
+                </td>
+                <td colspan="2">
+                    <button class="btn btn-primary btn-block" type="submit">ارسال</button>
+
+                </td>
+            }
+        }
+    </tr>
+
+</table>
+

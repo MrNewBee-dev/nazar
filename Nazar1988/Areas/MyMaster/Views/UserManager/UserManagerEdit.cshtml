@@ -1,0 +1,105 @@
+﻿@model Nazar1988.Models.ViewModels.EditProfileManagerViewModel
+@using Nazar1988.Areas.Identity.Data
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "UserManagerEdit";
+    Layout = "~/Views/Shared/_MymasterLayout.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-header bg-light">
+        ویرایش اطلاعات کاربر
+    </div>
+    @if (ViewBag.AlertSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            @ViewBag.AlertSuccess
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <form asp-action="UserManagerEdit" method="post">
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-9">
+                    <div asp-validation-summary="All" class="text-danger">
+
+                    </div>
+                    <div class="row">
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="form-group col-md-6">
+                            <label asp-for="FirstName"></label>
+                            <input asp-for="FirstName" class="form-control" id="InputName" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="LastName"></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label asp-for="PhoneNumber"></label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="KifePool"></label>
+                            <input asp-for="KifePool" class="form-control" />
+                            <span asp-validation-for="KifePool" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-group col-md-6">
+                            <button class="btn btn-primary mb-3" type="button" data-toggle="collapse" data-target="#demo">افزودن نقش کاربر</button>
+
+                            <div id="demo" class="collapse">
+                                <ul class="list-unstyled">
+                                    @foreach (var item in ViewBag.AllRoles as List<ApplicationRole>)
+                                    {
+
+                                        <li class="p-1">
+                                            @if (Model.Roles != null)
+                                            {
+                                                if (Model.Roles.Contains(item.Name))
+                                                {
+                                                    <input type="checkbox" value="@item.Name" name="Roles" checked />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" value="@item.Name" name="Roles" />
+                                                }
+                                            }
+
+                                            else
+                                            {
+                                                <input type="checkbox" value="@item.Name" name="Roles" />
+                                            }
+
+                                            @item.Name
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer clearfix bg-light">
+            <button type="submit" class="btn btn-primary float-left">ذخیره تغییرات</button>
+        </div>
+
+    </form>
+
+</div>
+
+

@@ -1,0 +1,79 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<Nazar1988.Models.ProductsDiscountModel>
+@addTagHelper*,ReflectionIT.Mvc.Paging
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using ReflectionIT.Mvc.Paging
+@using Microsoft.AspNetCore.Authorization
+@{
+    ViewData["Title"] = "Home Page";
+        
+}
+<header class="jumbotron hero-spacer">
+    <h1>فروشگاه پوشاک</h1>
+    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.</p>
+</header>
+
+<div class="row mb-3">
+    <div class="col-lg-12">
+        <h3>آخرین محصولات</h3>
+    </div>
+</div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+
+    <div class="col-3 col-md-3">
+        
+        <div class="card "  style="width: 18rem;">
+            <img class="card-img-top" src="~/GalleryFiles/@System.IO.Path.GetFileName(System.Text.Json.JsonSerializer.Deserialize<List<string>>(item.ImagePath).First())" alt="@item.ProductName">
+            <div class="card-body">
+                <h5 class="card-title">@item.ProductName</h5>
+                <p class="card-text">@item.ProductDescription</p>
+
+
+                @if (item.StartDate < DateTime.Now && item.EndtDate > DateTime.Now)
+                {
+                    if (ViewBag.role == true)
+                    {
+                        <p class="card-text">
+
+                        @(item.PriceToziKonande - (item.PriceToziKonande * item.DiscountPercent) / 100)
+                            </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">
+
+                            @(item.Price - (item.Price * item.DiscountPercent) / 100)
+                        </p>
+                    }
+                    <p class="card-text">
+                        @item.DiscountPercent درصد تخفیف
+                    </p>
+
+                }
+                else
+                {
+                    if (ViewBag.role == true)
+                    {
+                        <p class="card-text">
+
+                        @(item.PriceToziKonande)
+                            </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">
+
+                            @(item.Price)
+                        </p>
+                    }
+                }
+
+
+                <a asp-action="Details" asp-route-id="@item.ProductID" class="btn btn-primary">اطلاعات بیشتر</a>
+            </div>
+        </div>
+    </div>
+     }
+</div>
+

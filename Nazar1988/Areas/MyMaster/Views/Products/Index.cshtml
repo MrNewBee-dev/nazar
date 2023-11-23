@@ -1,0 +1,256 @@
+﻿@*@model IEnumerable<Nazar1988.Models.Product>*@
+@model ReflectionIT.Mvc.Paging.PagingList<Nazar1988.Models.Product>
+@addTagHelper*,ReflectionIT.Mvc.Paging
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_MymasterLayout.cshtml";
+    System.Globalization.PersianCalendar persian = new System.Globalization.PersianCalendar();
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-light">
+                لیست لباس ها 
+            </div>
+            <div class="card-body">
+                <div class="col-md-4 mb-3 padding-0px">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> جستجو</button>
+                        </span>
+                        <input id="input-group-1" name="input1-group2" class="form-control" placeholder="عنوان محصول را وارد کنید" type="text">
+                    </div>
+                </div>
+                <p>
+                    <a class="btn btn-primary btn-block" href="/MyMaster/Products/create" role="button" >
+                        ایجاد محصول جدید
+                    </a>
+                </p>
+                @*<div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">عنوان</label>
+                                        <input class="form-control" placeholder="عنوان">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">تعداد</label>
+                                        <input class="form-control" placeholder="تعداد">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">زبان</label>
+                                        <select class="select2 js-states form-control">
+                                            <option>فارسی</option>
+                                            <option>عربی</option>
+                                            <option>purple</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">دسته بندی</label>
+                                        <select class="select2 js-states form-control">
+                                            <option>فارسی</option>
+                                            <option>عربی</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">نویسنده</label>
+                                        <select class="select2 js-states form-control">
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">مترجم</label>
+                                        <select class="select2 js-states form-control">
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-control-label">ناشر</label>
+                                        <select class="select2 js-states form-control">
+                                            <option></option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="submit" value="جستجو" class="btn btn-success float-left" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>*@
+                <div class="table-responsive">
+                    @if (ViewBag.Msg != null)
+                    {
+                        <div class="alert alert-danger alert-dismissable">
+                            @ViewBag.Msg
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>عنوان</th>
+                                <th>قیمت (ریال)</th>
+                                <th>قیمت توزیع کننده (ریال)</th>
+                                <th>تعداد کل محصول</th>
+                                <th class="text-center">تاریخ انتشار در سایت</th>
+                                <th style="width:25px;">وضعیت</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Select((value, i) => (value, i)))
+                            {
+                                <tr>
+                                    <td class="text-center">@item.i</td>
+                                    <td class="text-nowrap">@item.value.ProductName</td>
+                                    <td>@item.value.Price.ToString("#,0 تومان")</td>
+                                    <td>@item.value.PriceToziKonande.ToString("#,0 تومان")</td>
+                                    
+                                    <td>@item.value.ProductTotal</td>
+
+                                    <td class="text-center">@persian.GetYear((DateTime)item.value.CreateDate).ToString()/@persian.GetMonth((DateTime)item.value.CreateDate).ToString()/@persian.GetDayOfMonth((DateTime)item.value.CreateDate).ToString() </td>
+
+                                    <td class="text-center">
+                                        @if (item.value.IsPublish)
+                                        {
+                                            <label class="badge badge-success btn-block">منتشر شده</label>
+                                        }
+                                        else
+                                        {
+                                            <label class="badge badge-danger btn-block">منتشر نشده</label>
+                                        }
+
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="btn btn-info btn-icon"><i class="fa fa-trash text-white"></i></a>
+                                        <a class="btn btn-success btn-icon" asp-action="Edit" asp-route-id="@item.value.ProductID"><i class="fa fa-edit text-white"></i></a>
+                                        <a class="btn btn-danger btn-icon" asp-route-id="@item.value.ProductID"  asp-action="FileUploader" ><i class="fa fa-eye text-white"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <nav> @await this.Component.InvokeAsync("Pager", new { PagingList = this.Model })</nav>
+
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<h1>Index</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductSold)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsPublish)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductTotal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductSold)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsPublish)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductUrl)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

@@ -1,0 +1,149 @@
+﻿@model Nazar1988.Models.ViewModels.ProductViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_MymasterLayout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <form asp-action="Create">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                افزودن تصویر
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="col-md-12 text-center">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            
+                                            <div class="fileinput-preview fileinput-exists thumbnail" style="height:200px"> </div>
+                                            <div>
+                                                <span class="btn default btn-file">
+                                                    <span class="fileinput-new btn btn-success"> انتخاب کنید </span>
+                                                    <span class="fileinput-exists btn btn-default"> تغییر عکس </span>
+                                                    <input type="file" name="Image" accept=".jpg, .png, .jpeg, .gif, .tif, .tiff, .JPG" />
+                                                </span>
+                                                <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                افزودن دسته بندی کتاب
+                            </div>
+                            <div class="card-body">
+                                <ul id="category" class="demo1">
+                                    @foreach (var item in Model.Categories)
+                                    {
+                                        <li>
+                                            <input type="checkbox" name="CategoryID" value="@item.CategoryID" /> @item.CategoryName
+                                            @await Html.PartialAsync("_SubCategories", item.SubCategories)
+
+                                        </li>
+                                    }
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        افزودن اطلاعات کتاب
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="ProductName">عنوان محصول</label>
+                                        <input asp-for="ProductName" class="form-control" placeholder="عنوان محصول">
+                                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Price" class="form-control-label"></label>
+                                        <input asp-for="Price" class="form-control" placeholder="قیمت">
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="PricetoziKonande" class="form-control-label"></label>
+                                        <input asp-for="PricetoziKonande" class="form-control" placeholder=" قیمت توزیع کننده">
+                                        <span asp-validation-for="PricetoziKonande" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProductNumber" class="form-control-label">کد محصول</label>
+                                        <input asp-for="ProductNumber" class="form-control" placeholder="کد محصول">
+                                        <span asp-validation-for="ProductNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="ProductTotal" class="form-control-label">تعداد کل محصولات</label>
+                                        <input asp-for="ProductTotal" class="form-control" placeholder="تعداد محصولات">
+                                        <span asp-validation-for="ProductTotal" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                   
+                                    <div class="form-group">
+                                        <label asp-for="IsPublish" class="form-control-label"></label>
+                                        <input type="checkbox" asp-for="IsPublish" checked/>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                         
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="ProductDescription" class="form-control-label"> خلاصه</label>
+                                        <textarea asp-for="ProductDescription" class="form-control">
+
+                                                        </textarea>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light text-right">
+                        <button type="submit" class="btn btn-success float-left mr-1">ذخیره اطلاعات </button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
